@@ -1,0 +1,46 @@
+@charset "ISO-8859-1";
+.botones{
+	color: white;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+button:hover{
+	border-radius:5px;
+	background-color:gray;
+}
+	
+
+.conte-header{
+    background-image: url(../imagenes/banner.png);
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.titulo{
+    color: white;
+    padding: 10px;
+
+}
+
+
+li{
+    display: inline;
+    margin-right: 20px;
+}
+
+body{
+    background: url(../imagenes/cultivos.jpg);
+    background-size: 120% auto;
+    background-repeat: no-repeat;
+    margin: 0px;
+}
+
+
+
+nav{
+    margin-top: 60px;
+}

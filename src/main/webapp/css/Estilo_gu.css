@@ -1,0 +1,85 @@
+@charset "ISO-8859-1";
+body {
+    background: url(../imagenes/cultivos.jpg);
+    background-size: 120% auto;
+    background-repeat: no-repeat;
+    margin: 0px;
+}
+
+.mainmenubtn {
+    background-color: skyblue;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    padding:20px;
+    margin-top:20px;
+}
+
+.horizontal{
+	margin-top: 10px;
+}
+
+.mainmenubtn2 {
+    background-color: palegreen;
+    color: dimgray;
+    border: 0;
+    cursor: pointer;
+    padding:20px;
+    margin-top:20px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+#login-box {
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 10%;
+    text-align: center;
+    background: #AED6F1;
+    padding: 20px 50px;
+    border-radius: 20px;
+    margin-top: 50px;
+
+}
+
+#login-box h1 {
+    color: gray;
+
+}
+
+#login-box .form .item {
+    margin-top: 15px;
+}
+
+#login-box .form .item input {
+    width: 250px;
+    font-size: 15px;
+    border: 0;
+    border-bottom: 3px solid white;
+    padding: 5px 10px;
+    background: #ffffff00;
+    color: #ffffff;
+}
+
+
+#login-box .form .item input[placeholder] {
+    color: white;
+}
+
+#login-box .form .item i {
+    font-size: 15px;
+    color: white;
+}
+
+
+
+#message-box {
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
