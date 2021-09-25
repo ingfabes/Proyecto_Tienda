@@ -46,19 +46,24 @@ public class controlador extends HttpServlet {
 		
 		if(request.getParameter("crear")!=null) {
 			long cedula;
-			String email, nombre, password, usuario;
-			cedula=Long.parseLong(request.getParameter("cedula"));
+			String ced, email, nombre, password, usuario;
+			ced=request.getParameter("cedula");
 			email=request.getParameter("correo");
 			nombre=request.getParameter("nombre");
 			password=request.getParameter("password");
 			usuario=request.getParameter("usuario");
+			if(!ced.equals("") && !nombre.equals("") && !password.equals("") && !usuario.equals("")) {
+			cedula=Long.parseLong(ced);
 			UsuarioDTO UDTO= new UsuarioDTO(cedula,email,nombre,password,usuario);
 			if(UDAO.Registra_usuario(UDTO)) {
 				response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario almacenado exitosamente");
 			}else {
 				response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no fue almacenado");
 			}
+		} else {
+			response.sendRedirect("Gestion_usuarios.jsp?mens=Porfavor, llene todos los datos e intente nuevamente");
 		}
+	}
 		
 		if(request.getParameter("consultar")!=null) {
 			String cedu=JOptionPane.showInputDialog("Digite el numero de cedula a consultar");

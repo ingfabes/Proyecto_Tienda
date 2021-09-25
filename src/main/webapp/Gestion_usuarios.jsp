@@ -26,8 +26,6 @@
             </ul>
         </nav>
     </header>
-    
-        <div id="login-box">
         
         <%!
 
@@ -50,8 +48,12 @@ if(request.getParameter("ced")!=null){
 	estado="";
 	estado_boton="disabled";
 }
+if(request.getParameter("mens")!=null){
+	String mensaje= request.getParameter("mens");
+	out.print("<script>alert('"+mensaje+"');</script>");
+}
 %>
-        
+         <div id="login-box">
             <h1>Gestion de Usuarios</h1>
 
             <div class="form">
@@ -87,18 +89,12 @@ if(request.getParameter("ced")!=null){
 
                 <div class="horizontal">
                 <button  class="mainmenubtn2" name="consultar" >Consultar</button>
-                <button  class="mainmenubtn2" name="crear">Crear</button>
+                <button  class="mainmenubtn2" name="crear" >Crear</button>
                 <button  class="mainmenubtn2" name="actualizar" <%=estado_boton%>>Actualizar</button>
                 <button  class="mainmenubtn2" name="borrar" <%=estado_boton%>>Borrar</button>
                 </div>
         </div>
         </div>
     </form>
-    <%
-if(request.getParameter("mens")!=null){
-	String mensaje= request.getParameter("mens");
-	out.print("<script>alert('"+mensaje+"');</script>");
-}
-%>
 </body>
 </html>
