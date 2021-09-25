@@ -7,7 +7,10 @@
 }
 
 button:hover{
-	border-radius:5px;
+	background-color:gray;
+}
+
+button:disabled{
 	background-color:gray;
 }
 	

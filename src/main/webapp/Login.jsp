@@ -32,5 +32,11 @@
             
         </div>
     </form>
+<%
+if(request.getParameter("mens")!=null){
+	String mensaje= request.getParameter("mens");
+	out.print("<script>alert('"+mensaje+"');</script>");
+}
+%>
 </body>
 </html>

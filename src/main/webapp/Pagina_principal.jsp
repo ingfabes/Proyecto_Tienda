@@ -13,7 +13,7 @@
     
     <header class="conte-header">
         <div>
-            <h1 class="titulo">Tienda generica</h1>
+            <h1 class="titulo">Tienda genérica</h1>
         </div>
         <nav>
             <ul>
@@ -27,11 +27,5 @@
         </nav>
     </header>
     </form>
-<%
-if(request.getParameter("mens")!=null){
-	String mensaje= request.getParameter("mens");
-	out.print("<script>alert('"+mensaje+"');</script>");
-}
-%>
 </body>
 </html>

@@ -40,8 +40,7 @@ public class controlador extends HttpServlet {
 			if(UDAO.Login(usuario, password)) {
 				response.sendRedirect("Pagina_principal.jsp");
 			}else {
-				JOptionPane.showMessageDialog(null, "Datos invalidos");
-				response.sendRedirect("Login.jsp");
+				response.sendRedirect("Login.jsp?mens=Datos invalidos");
 			}
 		}
 		
@@ -55,28 +54,38 @@ public class controlador extends HttpServlet {
 			usuario=request.getParameter("usuario");
 			UsuarioDTO UDTO= new UsuarioDTO(cedula,email,nombre,password,usuario);
 			if(UDAO.Registra_usuario(UDTO)) {
-				response.sendRedirect("Pagina_principal.jsp?mens=Usuario almacenado exitosamente");
+				response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario almacenado exitosamente");
 			}else {
 				response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no fue almacenado");
 			}
 		}
 		
 		if(request.getParameter("consultar")!=null) {
-			Long cedula= Long.parseLong(JOptionPane.showInputDialog("Digite el numero de cedula a consultar"));
-			UsuarioDTO UDTO=UDAO.Buscar_usuario(cedula);
-			if(UDTO!=null) {
-			long ced;
-			String email, nombre, password, usuario;
-			ced=UDTO.getCedula();
-			email=UDTO.getEmail();
-			nombre=UDTO.getNombre();
-			password=UDTO.getPassword();
-			usuario=UDTO.getUsuario();
-			response.sendRedirect("Gestion_usuarios.jsp?ced="+ced+"&&correo="+email+"&&nomb="+nombre+"&&pass="+password+"&&usuario="+usuario);
-			}else {
-				JOptionPane.showMessageDialog(null, "El usuario no existe");
+			String cedu=JOptionPane.showInputDialog("Digite el numero de cedula a consultar");
+			if(cedu!=null) {
+				if(!cedu.isEmpty()) {
+					Long cedula= Long.parseLong(cedu);
+					UsuarioDTO UDTO=UDAO.Buscar_usuario(cedula);
+					if(UDTO!=null) {
+					long ced;
+					String email, nombre, password, usuario;
+					ced=UDTO.getCedula();
+					email=UDTO.getEmail();
+					nombre=UDTO.getNombre();
+					password=UDTO.getPassword();
+					usuario=UDTO.getUsuario();
+					response.sendRedirect("Gestion_usuarios.jsp?ced="+ced+"&&correo="+email+"&&nomb="+nombre+"&&pass="+password+"&&usuario="+usuario);
+					}else {
+						response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no existe");
+					}
+				}else {
+					response.sendRedirect("Gestion_usuarios.jsp?mens=Busqueda vacia");
+				}
+				
+			}else if (cedu==null){
 				response.sendRedirect("Gestion_usuarios.jsp");
 			}
+		
 		}
 		
 		if(request.getParameter("actualizar")!=null) {
@@ -106,7 +115,7 @@ public class controlador extends HttpServlet {
 				response.sendRedirect("Gestion_usuarios.jsp?mens=El Usuario no fue eliminado");
 			}
 			
-			}else {
+			}else if (op==1 || op==2){
 				response.sendRedirect("Gestion_usuarios.jsp");
 			}
 			

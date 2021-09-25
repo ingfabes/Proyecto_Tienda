@@ -13,7 +13,7 @@
     
     <header class="conte-header">
         <div>
-            <h1 class="titulo">Tienda generica</h1>
+            <h1 class="titulo">Tienda genérica</h1>
         </div>
         <nav>
             <ul>
@@ -31,7 +31,7 @@
         
         <%!
 
-String cedula="", correo="", nombre="", pass="", user="", estado="";
+String cedula="", correo="", nombre="", pass="", user="", estado="", estado_boton="disabled";
 %>
 <%
 if(request.getParameter("ced")!=null){
@@ -41,6 +41,14 @@ if(request.getParameter("ced")!=null){
 	pass=request.getParameter("pass");
 	user=request.getParameter("usuario");
 	estado="disabled";
+	estado_boton="";
+}else{
+	cedula="";
+	correo="";
+	nombre="";pass="";
+	user="";
+	estado="";
+	estado_boton="disabled";
 }
 %>
         
@@ -80,11 +88,9 @@ if(request.getParameter("ced")!=null){
                 <div class="horizontal">
                 <button  class="mainmenubtn2" name="consultar" >Consultar</button>
                 <button  class="mainmenubtn2" name="crear">Crear</button>
-                <button  class="mainmenubtn2" name="actualizar">Actualizar</button>
-                <button  class="mainmenubtn2" name="borrar">Borrar</button>
+                <button  class="mainmenubtn2" name="actualizar" <%=estado_boton%>>Actualizar</button>
+                <button  class="mainmenubtn2" name="borrar" <%=estado_boton%>>Borrar</button>
                 </div>
-          
-            
         </div>
         </div>
     </form>
