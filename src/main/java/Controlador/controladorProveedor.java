@@ -100,6 +100,9 @@ public class controladorProveedor extends HttpServlet {
 		if (request.getParameter("usu") != null) {
 			response.sendRedirect("Gestion_usuarios.jsp");
 		}
+		if (request.getParameter("cli") != null) {
+			response.sendRedirect("Gestion_Clientes.jsp");
+		}
 		if (request.getParameter("pro") != null) {
 			response.sendRedirect("Gestion_proveedores.jsp");
 		}

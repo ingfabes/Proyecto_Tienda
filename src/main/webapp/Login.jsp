@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Tienda generica</title>
+	<title>Tienda genÉrica</title>
 	<link rel="stylesheet" type="text/css" href="css/Estilo_L.css">
 </head>
 <body>
