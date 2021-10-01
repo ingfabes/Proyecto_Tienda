@@ -23,7 +23,6 @@ public class controlador extends HttpServlet {
 	 */
 	public controlador() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

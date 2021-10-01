@@ -23,7 +23,6 @@ public class controladorProveedor extends HttpServlet {
      */
     public controladorProveedor() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -95,16 +94,6 @@ public class controladorProveedor extends HttpServlet {
 				response.sendRedirect("Gestion_proveedores.jsp?mens=El Proveedor no fue actualizado");
 			}
 
-		}
-		
-		if (request.getParameter("usu") != null) {
-			response.sendRedirect("Gestion_usuarios.jsp");
-		}
-		if (request.getParameter("cli") != null) {
-			response.sendRedirect("Gestion_Clientes.jsp");
-		}
-		if (request.getParameter("pro") != null) {
-			response.sendRedirect("Gestion_proveedores.jsp");
 		}
 		
 	}
