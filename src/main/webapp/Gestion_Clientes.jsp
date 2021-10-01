@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<%@include file="menu.jsp"%>
+<%@include file="Pagina_principal.jsp"%>
 <body>
   <form action="ControladorCliente" method="post">
         

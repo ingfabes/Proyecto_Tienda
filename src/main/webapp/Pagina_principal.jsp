@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Tienda generica</title>
 <link rel="stylesheet" type="text/css" href="css/Estilo_B.css">
 <link rel="stylesheet" type="text/css" href="css/Estilo_pp.css">
+<link rel="stylesheet" type="text/css" href="css/Estilo_gu.css">
 </head>
 <body>
 <form action="controlador" method="post">
