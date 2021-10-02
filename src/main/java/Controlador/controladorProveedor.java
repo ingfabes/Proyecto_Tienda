@@ -1,6 +1,8 @@
 package Controlador;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,6 +66,7 @@ public class controladorProveedor extends HttpServlet {
 						nitproveedor = PDTO.getNitproveedor();
 						ciudad_proveedor = PDTO.getCiudad_proveedor();
 						direccion_proveedor = PDTO.getDireccion_proveedor();
+						direccion_proveedor = URLEncoder.encode(direccion_proveedor, "UTF-8");
 						nombre_proveedor = PDTO.getNombre_proveedor();
 						telefono_proveedor = PDTO.getTelefono_proveedor();
 						response.sendRedirect("Gestion_proveedores.jsp?nitproveedor=" + nitproveedor + "&&ciudad_proveedor=" + ciudad_proveedor + "&&direccion_proveedor="
