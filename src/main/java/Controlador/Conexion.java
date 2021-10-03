@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-	private String bd="tienda";
+	private String bd="tiendagenerica";
 	private String url="jdbc:mysql://localhost:3306/"+bd;
 	private String user="root";
-	private String pass="1234";
+	private String pass="admin";
 	
 	Connection conect=null;
 	

@@ -136,5 +136,8 @@ public class controlador extends HttpServlet {
 		if (request.getParameter("pro") != null) {
 			response.sendRedirect("Gestion_proveedores.jsp");
 		}
+		if (request.getParameter("prod") != null) {
+			response.sendRedirect("Productos.jsp");
+		}
 	}
 }
