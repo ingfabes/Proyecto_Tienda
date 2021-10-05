@@ -8,7 +8,6 @@
 <body>
     <form action="controlador" method="post">
         <%!
-
 String cedula="", correo="", nombre="", pass="", user="", estado="", estado_boton="disabled";
 %>
 <%
