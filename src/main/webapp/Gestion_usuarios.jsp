@@ -23,7 +23,8 @@ if(request.getParameter("ced")!=null){
 }else{
 	cedula="";
 	correo="";
-	nombre="";pass="";
+	nombre="";
+	pass="";
 	user="";
 	estado="";
 	estado_boton="disabled";
