@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <%@include file="Pagina_principal.jsp"%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
     <form action="controlador" method="post">
@@ -29,7 +30,7 @@ if(request.getParameter("ced")!=null){
 }
 if(request.getParameter("mens")!=null){
 	String mensaje= request.getParameter("mens");
-	out.print("<script>alert('"+mensaje+"');</script>");
+	out.print( "<script>Swal.fire({title: '"+mensaje+"', icon: 'warning'});</script>");
 }
 %>
          <div id="login-box">
@@ -70,10 +71,11 @@ if(request.getParameter("mens")!=null){
                 <button  class="mainmenubtn2" name="consultar" >Consultar</button>
                 <button  class="mainmenubtn2" name="crear" >Crear</button>
                 <button  class="mainmenubtn2" name="actualizar" <%=estado_boton%>>Actualizar</button>
-                <button  class="mainmenubtn2" name="borrar" <%=estado_boton%>>Borrar</button>
+                <button  class="mainmenubtn2" name="borrar" <%=estado_boton%>>Borrar</button>              
                 </div>
         </div>
         </div>
     </form>
+    
 </body>
 </html>

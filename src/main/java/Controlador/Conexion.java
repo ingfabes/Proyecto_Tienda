@@ -17,7 +17,6 @@ public class Conexion {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conect=DriverManager.getConnection(url,user,pass);
-			//JOptionPane.showMessageDialog(null, "conexion ok");
 		}catch(Exception e) {
 			JOptionPane.showMessageDialog(null, "Error en conexion: "+e);
 		}
