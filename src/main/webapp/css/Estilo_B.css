@@ -10,10 +10,7 @@ button:hover{
 	background-color:gray;
 }
 
-button:disabled{
-	background-color:gray;
-}
-	
+
 
 .conte-header{
     background-image: url(../imagenes/banner.png);

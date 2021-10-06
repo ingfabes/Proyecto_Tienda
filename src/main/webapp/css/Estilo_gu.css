@@ -83,3 +83,19 @@ body {
     width: 100%;
     text-align: center;
 }
+
+input:disabled{
+	cursor: default;
+	background-color:gray;
+}
+
+.mainmenubtn2:hover{
+	background-color: gray;
+}
+
+button:disabled{
+	background-color:gray;
+	cursor: default;
+}
+
+

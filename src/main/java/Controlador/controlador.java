@@ -6,8 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-
 import Modelo.UsuarioDAO;
 import Modelo.UsuarioDTO;
 
@@ -61,15 +59,12 @@ public class controlador extends HttpServlet {
 					response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no fue almacenado");
 				}
 			} else {
-				response.sendRedirect("Gestion_usuarios.jsp?mens=Porfavor, llene todos los datos e intente nuevamente");
+				response.sendRedirect("Gestion_usuarios.jsp?mens=Porfavor, llene todos los campos e intente nuevamente");
 			}
 		}
 
 		if (request.getParameter("consultar") != null) {
-			String cedu = JOptionPane.showInputDialog("Digite el numero de cedula a consultar");
-			if (cedu != null) {
-				if (!cedu.isEmpty()) {
-					Long cedula = Long.parseLong(cedu);
+					Long cedula = Long.parseLong(request.getParameter("ced"));
 					UsuarioDTO UDTO = UDAO.Buscar_usuario(cedula);
 					if (UDTO != null) {
 						long ced;
@@ -83,14 +78,7 @@ public class controlador extends HttpServlet {
 								+ nombre + "&&pass=" + password + "&&usuario=" + usuario);
 					} else {
 						response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no existe");
-					}
-				} else {
-					response.sendRedirect("Gestion_usuarios.jsp?mens=Busqueda vacia");
-				}
-
-			} else if (cedu == null) {
-				response.sendRedirect("Gestion_usuarios.jsp");
-			}
+					} 
 
 		}
 
@@ -113,17 +101,11 @@ public class controlador extends HttpServlet {
 
 		if (request.getParameter("borrar") != null) {
 			long cedula = Long.parseLong(request.getParameter("ced"));
-			int op = JOptionPane.showConfirmDialog(null, "desea eliminar el usuario con cedula: " + cedula);
-			if (op == 0) {
 				if (UDAO.Eliminar_usuario(cedula)) {
 					response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario eliminado exitosamente");
 				} else {
 					response.sendRedirect("Gestion_usuarios.jsp?mens=El Usuario no fue eliminado");
 				}
-
-			} else if (op == 1 || op == 2) {
-				response.sendRedirect("Gestion_usuarios.jsp");
-			}
 
 		}
 
