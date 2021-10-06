@@ -125,7 +125,6 @@ function alerta_consulta(){
 	    }
 	});
 	}
-
 </script>
 
 </html>
