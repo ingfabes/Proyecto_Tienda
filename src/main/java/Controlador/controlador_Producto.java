@@ -45,7 +45,7 @@ public class controlador_Producto extends HttpServlet {
 			Part archivo= request.getPart("archivo");
 		
 			String Url="C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/";
-			
+			//String Url="/var/lib/mysql/documents/";// para linux no borrar.
 			try {
 			InputStream file= archivo.getInputStream();
 			File copia = new File(Url+"prueba.csv");
@@ -58,6 +58,7 @@ public class controlador_Producto extends HttpServlet {
 			escribir.close();
 			file.close();
 			JOptionPane.showMessageDialog(null, "Se Cargo el Archivo Correctamente.");
+			//if(proDao.Cargar_Producto("documents/prueba.csv")) {  //para linux no borrar.
 			if(proDao.Cargar_Producto(Url+"prueba.csv")) {
 				response.sendRedirect("Productos.jsp?men=Se Inserto  Correctamente");
 			}else

@@ -26,6 +26,8 @@ public boolean Cargar_Producto(String Ruta) {
 			
 			
 		String sql2="load data infile '"+Ruta+"' into table productos fields terminated by ',' lines terminated by '\r\n';";
+		//String sql2="load data infile '"+Ruta+"' into table productos fields terminated by ',' lines terminated by '\n';";
+		//para linux no borrar.
 		ps=conec.prepareStatement(sql2);
 		resul=ps.executeUpdate()>0;
 		}catch(SQLException ex) {
