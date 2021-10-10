@@ -1,0 +1,42 @@
+@charset "ISO-8859-1";
+/* Estilos de etiqueta*/
+
+table {
+  background: white;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th {
+  background-color: rgb(51, 152, 220);
+  height: 35px;
+  border-bottom: 1px solid rgb(210, 220, 250);
+  color: rgb(204, 209, 209);
+}
+
+td {
+  color: rgba(100, 100, 100, 60);
+  height: 30px;
+  border: 0.5px solid rgba(240, 240, 240, 10);
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+/*Pseudo-clases*/
+th:hover {
+  background-color:rgb(242, 244, 244);
+}
+
+tr:hover {
+  background-color: rgb(242, 244, 244);
+}
+
+#botonTabla {
+  margin-top: 5px;
+  text-align: center;
+}

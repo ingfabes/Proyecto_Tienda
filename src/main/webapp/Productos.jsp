@@ -3,7 +3,13 @@
 <!DOCTYPE html>
 <html>
 <%@include file="Pagina_principal.jsp"%>
+<link rel="stylesheet" type="text/css" href="css/Tabla.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+ 
+<script type="text/javascript" src="js/Producto.js"></script>
+
 <body>
 
 <form action="controlador_Producto" method="post" enctype="multipart/form-data">
@@ -14,8 +20,18 @@
 </div>
 
  <button  class="mainmenubtn2" type="submit" name="cargar" >Cargar Productos</button>
-</div></div>
+</div>
+
+</div>
 </form>
+<div id= "botonTabla">
+<button id="listaProductos" class="mainmenubtn2"  >Listar Productos</button>
+</div>
+<table id="tabla">
+
+</table>
+
+
 <% if(request.getParameter("mens")!=null){
 	String mensaje= request.getParameter("mens");
 	out.print("<script>alert('"+mensaje+"');</script>");

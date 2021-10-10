@@ -1,7 +1,7 @@
 package Modelo;
 
 import java.sql.*;
-
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -37,6 +37,23 @@ public boolean Cargar_Producto(String Ruta) {
 		return resul;
 	}
 
-
+public ArrayList<ProductoDTO> listarproductos(){
+	
+	ProductoDTO pro=null;
+	ArrayList<ProductoDTO> lista= new ArrayList<>();
+	try {
+	String sql="select * from productos";
+	ps=conec.prepareStatement(sql);
+	res=ps.executeQuery();
+	while(res.next()) {
+		pro=new ProductoDTO(res.getInt(1),res.getInt(2),res.getInt(3),res.getString(4),res.getInt(5),res.getInt(6));
+		lista.add(pro);
+	}
+		
+	}catch(SQLException ex) {
+		JOptionPane.showMessageDialog(null,"Error al consultar prestamos" +ex);
+	}
+	 return lista;
+}
 
 }
