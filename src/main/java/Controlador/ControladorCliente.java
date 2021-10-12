@@ -6,10 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-
-
-
 import Modelo.ClienteDTO;
 import Modelo.ClienteDAO;
 
@@ -50,11 +46,12 @@ public class ControladorCliente extends HttpServlet {
 			correo = request.getParameter("correo");
 			if (!cedu.equals("") && !nombre.equals("") && !direccion.equals("") && !telefono.equals("") && !correo.equals("")) {
 				cedula = Long.parseLong(cedu);
-				ClienteDTO CDTO = new ClienteDTO (cedula, nombre, direccion, telefono, correo);
-				if (CDAO.Registrar_Cliente(CDTO)) {
-					response.sendRedirect("Gestion_Clientes.jsp?mens=Cliente registrado exitosamente");
+				ClienteDTO CDTO = new ClienteDTO (cedula, direccion, correo, nombre, telefono);
+				String mensaje=CDAO.Registrar_Cliente(CDTO);
+				if (mensaje.equals("ok")) {
+					response.sendRedirect("Gestion_Clientes.jsp?titulo=Registro exitoso&&mens=Cliente almacenado correctamente&&icono=success");
 				} else {
-					response.sendRedirect("Gestion_Clientes.jsp?mens=El cliente no fue registrado");
+					response.sendRedirect("Gestion_Clientes.jsp?titulo=No se pudo registrar el cliente&&mens="+mensaje+"&&icono=error");
 				}
 			} else {
 				response.sendRedirect("Gestion_Clientes.jsp?mens=Por favor, diligencie los datos e intentelo nuevamente");
@@ -62,10 +59,7 @@ public class ControladorCliente extends HttpServlet {
 		}
 
 		if (request.getParameter("Buscar") != null) {
-			String cedula = JOptionPane.showInputDialog("Digite el numero de cedula a consultar");
-			if (cedula != null) {
-				if (!cedula.isEmpty()) {
-					Long cedu = Long.parseLong(cedula);
+					Long cedu = Long.parseLong(request.getParameter("ced"));
 					ClienteDTO CDTO = CDAO.Buscar_Cliente(cedu);
 					if (CDTO != null) {
 						
@@ -78,23 +72,20 @@ public class ControladorCliente extends HttpServlet {
 						response.sendRedirect("Gestion_Clientes.jsp?cedula=" + cedu + "&&nombre=" + nombre + "&&direccion="
 								+ direccion + "&&telefono=" + telefono + "&&correo=" + correo);
 					} else {
-						response.sendRedirect("Gestion_Clientes.jsp?mens=El cliente no existe");
+						 if(CDAO.getMnsje().equals("ok")){
+								response.sendRedirect("Gestion_Clientes.jsp?titulo=No se encontraron resultados en la busqueda&&mens=El cliente no existe&&icono=warning");
+						 }else {
+						response.sendRedirect("Gestion_Clientes.jsp?titulo=Error&&mens="+CDAO.getMnsje()+"&&icono=error");
 					}
-				} else {
-					response.sendRedirect("Gestion_Clientes.jsp?mens=Busqueda vacia");
-				}
-
-			} else if (cedula == null) {
-				response.sendRedirect("Gestion_Clientes.jsp");
+					}
 			}
 
-		}
  
 		if (request.getParameter("Actualizar") != null) {
 			long cedu;
 			String cedula, nombre, direccion, telefono, correo;
 			
-			cedula = request.getParameter("cedula");
+			cedula = request.getParameter("ced");
 			correo = request.getParameter("correo");
 			nombre = request.getParameter("nombre");
 			direccion = request.getParameter("direccion");
@@ -104,26 +95,21 @@ public class ControladorCliente extends HttpServlet {
 			ClienteDTO CDTO = new ClienteDTO(cedu, nombre, direccion, telefono, correo);
 		
 			if (CDAO.Actualizar_Cliente(CDTO)) {
-				response.sendRedirect("Gestion_Clientes.jsp?mens=Cliente actualizado exitosamente");
+				response.sendRedirect("Gestion_Clientes.jsp?titulo=Actualizacion exitosa&&mens=Cliente actualizado correctamentee&&icono=success");
 			} else {
-				response.sendRedirect("Gestion_Clientes.jsp?mens=El cliente no fue actualizado");
+				response.sendRedirect("Gestion_Clientes.jsp?titulo=Error&&mens=El cliente no fue actualizado&&icono=error");
 			}
 
 		}
 
 		if (request.getParameter("Eliminar") != null) {
-			long cedu = Long.parseLong(request.getParameter("cedula"));
-			int opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar el cliente con cedula: " + cedu);
-			if (opcion == 0) {
+			long cedu = Long.parseLong(request.getParameter("ced"));
 				if (CDAO.Eliminar_Cliente(cedu)) {
-					response.sendRedirect("Gestion_Clientes.jsp?mens=Cliente eliminado exitosamente");
+					response.sendRedirect("Gestion_Clientes.jsp?titulo=Eliminacion exitosa&&mens=Cliente eliminado correctamente&&icono=success");
 				} else {
-					response.sendRedirect("Gestion_Clientes.jsp?mens=El cliente no fue eliminado");
+					response.sendRedirect("Gestion_Clientes.jsp?titulo=Error&&mens=El ciente no fue eliminado&&icono=error");
 				}
 
-			} else if (opcion == 1 || opcion == 2) {
-				response.sendRedirect("Gestion_Clientes.jsp");
-			}
 
 		}
 	}

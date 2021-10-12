@@ -3,8 +3,6 @@ package Controlador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import javax.swing.JOptionPane;
-
 public class Conexion {
 	private String bd="tienda";
 	private String url="jdbc:mysql://localhost:3306/"+bd;
@@ -18,7 +16,7 @@ public class Conexion {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conect=DriverManager.getConnection(url,user,pass);
 		}catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Error en conexion: "+e);
+			conect=null;
 		}
 		return conect;
 	}

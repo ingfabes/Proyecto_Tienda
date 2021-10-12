@@ -32,9 +32,11 @@
 </table>
 
 
-<% if(request.getParameter("mens")!=null){
-	String mensaje= request.getParameter("mens");
-	out.print("<script>alert('"+mensaje+"');</script>");
+<% if(request.getParameter("men")!=null){
+	String titulo= request.getParameter("titulo");
+	String mensaje= request.getParameter("men");
+	String icon=request.getParameter("icono");
+	out.print("<script>Swal.fire({title: '"+titulo+"', text:'"+mensaje+"', icon: '"+icon+"'});</script>");
 }%>
 </body>
 
@@ -45,7 +47,7 @@ function validarExt()
     var archivoRuta = archivoInput.value;
     var extPermitidas = /(.csv)$/i;
     if(!extPermitidas.exec(archivoRuta)){
-    	Swal.fire({title: "Asegurese de haber seleccionado un archivo con extensión .csv", icon: 'warning'});
+    	Swal.fire({title:"Error", text: "Formato de archivo invalido, asegurese de seleccionar un archivo con extensión .csv", icon: 'error'});
         archivoInput.value = '';
         return false;
     }

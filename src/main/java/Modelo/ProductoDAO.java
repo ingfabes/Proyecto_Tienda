@@ -14,10 +14,10 @@ public class ProductoDAO {
 	PreparedStatement ps=null;
 	ResultSet res=null;
 	
-public boolean Cargar_Producto(String Ruta) {
+public String Cargar_Producto(String Ruta) {
 	
 		
-		boolean resul=false;
+		String mensaje="";
 		
 		try {
 		String sql="delete from productos";
@@ -29,12 +29,25 @@ public boolean Cargar_Producto(String Ruta) {
 		//String sql2="load data infile '"+Ruta+"' into table productos fields terminated by ',' lines terminated by '\n';";
 		//para linux no borrar.
 		ps=conec.prepareStatement(sql2);
-		resul=ps.executeUpdate()>0;
+		if(ps.executeUpdate()>0) {
+			mensaje="ok";
+		}
 		}catch(SQLException ex) {
-			JOptionPane.showMessageDialog(null,"Error al Cargar :   "+ex);
+			if(ex.getErrorCode()==1452) {
+				mensaje="Hay proveedores que no existen en la base de datos";
+			}else if(ex.getErrorCode()==1262) {
+				mensaje="El numero de campos a registrar no concuerda con los de la base de datos";
+			}else if(ex.getErrorCode()==1062) {
+				mensaje="Hay codigos del producto duplicados, por favor verificar el archivo";
+			}else if(ex.getErrorCode()==1265) {
+				mensaje="datos leidos invalidos, verifique";
+			}else if(ex.getErrorCode()==1366) {
+				mensaje="Hay campos obligatorios vacios o con caracteres no permitidos, verifique";
+			}
+			
 		}
 		
-		return resul;
+		return mensaje;
 	}
 
 public ArrayList<ProductoDTO> listarproductos(){

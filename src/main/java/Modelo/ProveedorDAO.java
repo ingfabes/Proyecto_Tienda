@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import Controlador.Conexion;
 
 /**
@@ -22,9 +20,19 @@ public class ProveedorDAO {
 	Connection conect = cn.conecta();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	private String Mnsje="";
+
+	public String getMnsje() {
+		return Mnsje;
+	}
+
+	public void setMnsje(String mnsje) {
+		Mnsje = mnsje;
+	}
 	
-	public boolean Registra_proveedor(ProveedorDTO PDTO) {
-		boolean registrado = false;
+	public String Registra_proveedor(ProveedorDTO PDTO) {
+		String mensaje="";
+		if(conect!=null) {
 		ProveedorDTO prodto = null;
 		try {
 			prodto = Buscar_proveedor(PDTO.getNitproveedor());
@@ -36,19 +44,26 @@ public class ProveedorDAO {
 				ps.setString(3, PDTO.getDireccion_proveedor());
 				ps.setString(4, PDTO.getNombre_proveedor());
 				ps.setString(5, PDTO.getTelefono_proveedor());
-				registrado = ps.executeUpdate() > 0;
+				if(ps.executeUpdate() > 0) {
+					mensaje="ok";
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "El proveedor ya existe");
+				mensaje= "El proveedor ya existe";
 			}
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al Registrar: " + e);
+			mensaje="No se pudo registrar el proveedor en la base datos";
 		}
-		return registrado;
+		}else {
+			mensaje="No se pudo conectar con la base de datos";
+		}
+		return mensaje;
 	}
 
 	public ProveedorDTO Buscar_proveedor(long nitproveedor) {
+		setMnsje("");
 		ProveedorDTO PDTO = null;
+		if(conect!=null) {
 		try {
 			String sql = "select * from proveedores where nitproveedor=?";
 			ps = conect.prepareStatement(sql);
@@ -58,15 +73,20 @@ public class ProveedorDAO {
 				PDTO = new ProveedorDTO(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5));
 			}
+			setMnsje("ok");
 		} catch (SQLException s) {
-			JOptionPane.showMessageDialog(null, "Error al consultar: " + s);
+			setMnsje("No se pudo establecer la consulta");
+		}
+		}else {
+			setMnsje("No se pudo conectar con la base de datos");;
 		}
 		return PDTO;
 	}
 	
 
-	public boolean Actualizar_usuario(ProveedorDTO PDTO) {
+	public boolean Actualizar_proveedor(ProveedorDTO PDTO) {
 		boolean resultado = false;
+		if(conect!=null) {
 		try {
 			String sql = "update proveedores set ciudad_proveedor=?, direccion_proveedor=?, nombre_proveedor=?, telefono_proveedor=? where nitproveedor=?";
 			ps = conect.prepareStatement(sql);
@@ -77,7 +97,10 @@ public class ProveedorDAO {
 			ps.setLong(5, PDTO.getNitproveedor());
 			resultado = ps.executeUpdate() > 0;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al actualizar: " + e);
+			resultado=false;
+		}
+		}else {
+			setMnsje("No se pudo conectar con la base de datos");;
 		}
 		return resultado;
 	}

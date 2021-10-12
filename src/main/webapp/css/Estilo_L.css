@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 body {
-    background: url(../imagenes/cultivos.jpg);
-    background-size: 120% auto;
+	background: url(../imagenes/supermercado.webp);
+    background-size: 100% auto;
     background-repeat: no-repeat;
 }
 

@@ -7,6 +7,7 @@
 	<meta charset="utf-8">
 	<title>Tienda gen…rica</title>
 	<link rel="stylesheet" type="text/css" href="css/Estilo_L.css">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	
@@ -35,7 +36,7 @@
 <%
 if(request.getParameter("mens")!=null){
 	String mensaje= request.getParameter("mens");
-	out.print("<script>alert('"+mensaje+"');</script>");
+	out.print( "<script>Swal.fire({title: '"+mensaje+"', icon: 'warning'});</script>");
 }
 %>
 </body>

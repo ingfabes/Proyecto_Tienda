@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import Controlador.Conexion;
 
 public class UsuarioDAO {
@@ -15,9 +13,19 @@ public class UsuarioDAO {
 	Connection conect = cn.conecta();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	private String Mnsje="";
 
-	public boolean Registra_usuario(UsuarioDTO UDTO) {
-		boolean registrado = false;
+	public String getMnsje() {
+		return Mnsje;
+	}
+
+	public void setMnsje(String mnsje) {
+		Mnsje = mnsje;
+	}
+
+	public String Registra_usuario(UsuarioDTO UDTO) {
+		String mensaje="";
+		if(conect!=null) {
 		UsuarioDTO usudto = null;
 		try {
 			usudto = Buscar_usuario(UDTO.getCedula());
@@ -29,19 +37,26 @@ public class UsuarioDAO {
 				ps.setString(3, UDTO.getNombre());
 				ps.setString(4, UDTO.getPassword());
 				ps.setString(5, UDTO.getUsuario());
-				registrado = ps.executeUpdate() > 0;
+				if(ps.executeUpdate() > 0) {
+					mensaje="ok";
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "El usuario ya existe");
+				mensaje= "El usuario ya existe";
 			}
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al Registrar: " + e);
+			mensaje="No se pudo registrar el usuario en la base datos";
 		}
-		return registrado;
+		}else {
+			mensaje="No se pudo conectar con la base de datos";
+		}
+		return mensaje;
 	}
 
 	public UsuarioDTO Buscar_usuario(long cedula) {
+		setMnsje("");
 		UsuarioDTO UDTO = null;
+		if(conect!=null) {
 		try {
 			String sql = "select * from usuarios where cedula_usuario=?";
 			ps = conect.prepareStatement(sql);
@@ -51,14 +66,20 @@ public class UsuarioDAO {
 				UDTO = new UsuarioDTO(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5));
 			}
+			setMnsje("ok");
 		} catch (SQLException s) {
-			JOptionPane.showMessageDialog(null, "Error al consultar: " + s);
+			setMnsje("No se pudo establecer la consulta");
+		}
+		}else {
+			setMnsje("No se pudo conectar con la base de datos");
 		}
 		return UDTO;
 	}
 
 	public boolean Actualizar_usuario(UsuarioDTO UDTO) {
+		setMnsje("");
 		boolean resultado = false;
+		if(conect!=null) {
 		try {
 			String sql = "update usuarios set email_usuario=?, nombre_usuario=?, password=?, usuario=? where cedula_usuario=?";
 			ps = conect.prepareStatement(sql);
@@ -69,20 +90,27 @@ public class UsuarioDAO {
 			ps.setLong(5, UDTO.getCedula());
 			resultado = ps.executeUpdate() > 0;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al actualizar: " + e);
+			resultado=false;
+		}
+		}else {
+			setMnsje("No se pudo conectar con la base de datos");
 		}
 		return resultado;
 	}
 
 	public boolean Eliminar_usuario(Long cedula) {
 		boolean resultado=false;
+		if(conect!=null) {
 		try {
 			String sql="delete from usuarios where cedula_usuario=?";
 			ps=conect.prepareStatement(sql);
 			ps.setLong(1, cedula);
 			resultado=ps.executeUpdate()>0;
 		}catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al eliminar: "+e);
+			resultado=false;
+		}
+		}else {
+			setMnsje("No se pudo conectar con la base de datos");;
 		}
 		return resultado;
 	}
@@ -99,11 +127,10 @@ public class UsuarioDAO {
 				resultado=true;
 			}
 		}catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al consultar: "+e);
+			resultado=false;
 		}
 		return resultado;
 	}
 	
-
 
 }

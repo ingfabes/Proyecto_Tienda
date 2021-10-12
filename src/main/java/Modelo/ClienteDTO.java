@@ -5,8 +5,8 @@ public class ClienteDTO {
 	private long cedula;
 	private String nombre_completo, direccion, telefono, correoelectronico;
 	
-	public ClienteDTO(long cedula, String nombre_completo, String direccion,
-			String telefono, String correoelectronico) {
+	public ClienteDTO(long cedula, String direccion, String correoelectronico, String nombre_completo,
+			String telefono) {
 		
 		super();
 		this.cedula = cedula;

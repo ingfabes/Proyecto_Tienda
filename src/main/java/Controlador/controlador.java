@@ -32,13 +32,16 @@ public class controlador extends HttpServlet {
 		UsuarioDAO UDAO = new UsuarioDAO();
 
 		if (request.getParameter("ingresar") != null) {
-			String usuario, password;
-			usuario = request.getParameter("username");
-			password = request.getParameter("password");
-			if (UDAO.Login(usuario, password)) {
-				response.sendRedirect("Pagina_principal.jsp");
-			} else {
-				response.sendRedirect("Login.jsp?mens=Datos invalidos");
+			String usuario = request.getParameter("username");
+			String password = request.getParameter("password");
+			if(usuario.equals(null) || password.equals(null) || usuario.equals("") || password.equals("") ) {
+				response.sendRedirect("Login.jsp?mens=Hay campos vacios");
+			}else {
+				if (UDAO.Login(usuario, password)) {
+					response.sendRedirect("Pagina_principal.jsp");
+				} else {
+					response.sendRedirect("Login.jsp?mens=Datos invalidos");
+				}
 			}
 		}
 
@@ -53,10 +56,11 @@ public class controlador extends HttpServlet {
 			if (!ced.equals("") && !nombre.equals("") && !password.equals("") && !usuario.equals("")) {
 				cedula = Long.parseLong(ced);
 				UsuarioDTO UDTO = new UsuarioDTO(cedula, email, nombre, password, usuario);
-				if (UDAO.Registra_usuario(UDTO)) {
-					response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario almacenado exitosamente");
+				String mensaje=UDAO.Registra_usuario(UDTO);
+				if (mensaje.equals("ok")) {
+					response.sendRedirect("Gestion_usuarios.jsp?titulo=Registro exitoso&&mens=Usuario almacenado correctamente&&icono=success");
 				} else {
-					response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no fue almacenado");
+					response.sendRedirect("Gestion_usuarios.jsp?titulo=No se pudo registrar el usuario&&mens="+mensaje+"&&icono=error");
 				}
 			} else {
 				response.sendRedirect("Gestion_usuarios.jsp?mens=Porfavor, llene todos los campos e intente nuevamente");
@@ -77,10 +81,14 @@ public class controlador extends HttpServlet {
 						response.sendRedirect("Gestion_usuarios.jsp?ced=" + ced + "&&correo=" + email + "&&nomb="
 								+ nombre + "&&pass=" + password + "&&usuario=" + usuario);
 					} else {
-						response.sendRedirect("Gestion_usuarios.jsp?mens=El usuario no existe");
-					} 
-
+						 if(UDAO.getMnsje().equals("ok")){
+								response.sendRedirect("Gestion_usuarios.jsp?titulo=No se encontraron resultados en la busqueda&&mens=El usuario no existe&&icono=warning");
+						 }else {
+						response.sendRedirect("Gestion_usuarios.jsp?titulo=Error&&mens="+UDAO.getMnsje()+"&&icono=error");
+					}
+					}
 		}
+
 
 		if (request.getParameter("actualizar") != null) {
 			long ced;
@@ -92,9 +100,9 @@ public class controlador extends HttpServlet {
 			usuario = request.getParameter("usuario");
 			UsuarioDTO UDTO = new UsuarioDTO(ced, email, nombre, password, usuario);
 			if (UDAO.Actualizar_usuario(UDTO)) {
-				response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario actualizado exitosamente");
+				response.sendRedirect("Gestion_usuarios.jsp?titulo=Actualizacion exitosa&&mens=Usuario actualizado correctamentee&&icono=success");
 			} else {
-				response.sendRedirect("Gestion_usuarios.jsp?mens=El Usuario no fue actualizado");
+				response.sendRedirect("Gestion_usuarios.jsp?titulo=Error&&mens=El usuario no fue actualizado&&icono=error");
 			}
 
 		}
@@ -102,9 +110,9 @@ public class controlador extends HttpServlet {
 		if (request.getParameter("borrar") != null) {
 			long cedula = Long.parseLong(request.getParameter("ced"));
 				if (UDAO.Eliminar_usuario(cedula)) {
-					response.sendRedirect("Gestion_usuarios.jsp?mens=Usuario eliminado exitosamente");
+					response.sendRedirect("Gestion_usuarios.jsp?titulo=Eliminacion exitosa&&mens=Usuario eliminado correctamente&&icono=success");
 				} else {
-					response.sendRedirect("Gestion_usuarios.jsp?mens=El Usuario no fue eliminado");
+					response.sendRedirect("Gestion_usuarios.jsp?titulo=Error&&mens=El Usuario no fue eliminado&&icono=error");
 				}
 
 		}
