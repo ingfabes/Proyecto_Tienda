@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.JOptionPane;
-
 import Modelo.ProductoDAO;
 
 /**
@@ -43,7 +41,9 @@ public class controlador_Producto extends HttpServlet {
             if(request.getParameter("cargar")!=null) {
 			
 			Part archivo= request.getPart("archivo");
-		
+			if(archivo.getSize()>0) {
+
+				
 			String Url="C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/";
 			//String Url="/var/lib/mysql/documents/";// para linux no borrar.
 			try {
@@ -57,18 +57,22 @@ public class controlador_Producto extends HttpServlet {
 	      	}
 			escribir.close();
 			file.close();
-			JOptionPane.showMessageDialog(null, "Se Cargo el Archivo Correctamente.");
-			//if(proDao.Cargar_Producto("documents/prueba.csv")) {  //para linux no borrar.
-			if(proDao.Cargar_Producto(Url+"prueba.csv")) {
-				response.sendRedirect("Productos.jsp?men=Se Inserto  Correctamente");
+			String mensaje=proDao.Cargar_Producto(Url+"prueba.csv");
+			//String mensaje=proDao.Cargar_Producto("documents/prueba.csv"); //para linux no borrar
+			if(mensaje.equals("ok")) {
+				response.sendRedirect("Productos.jsp?titulo=Registro exitoso&&men=Archivo cargado exitosamente&&icono=success");
 			}else
 			{
-				response.sendRedirect("Productos.jsp?men=No se Inserto ");
+				response.sendRedirect("Productos.jsp?titulo=Error&&men="+mensaje+"&&icono=error");
 			}
 			}catch(Exception e) {
-				JOptionPane.showMessageDialog(null, "Error de Archivo....."+e);
+				response.sendRedirect("Productos.jsp?titulo=Error&&men=No se pudo cargar el archivo&&icono=error");
 			}
-		}
+            }else {
+            	response.sendRedirect("Productos.jsp?titulo=Error&&men=No se selecciono archivo para cargar o el archivo esta vacio&&icono=error");
+            }
+			
+            }       
 	}
 
 }

@@ -30,8 +30,10 @@ if(request.getParameter("ced")!=null){
 	estado_boton="disabled";
 }
 if(request.getParameter("mens")!=null){
+	String titulo= request.getParameter("titulo");
 	String mensaje= request.getParameter("mens");
-	out.print( "<script>Swal.fire({title: '"+mensaje+"', icon: 'warning'});</script>");
+	String icon=request.getParameter("icono");
+	out.print("<script>Swal.fire({title: '"+titulo+"', text:'"+mensaje+"', icon: '"+icon+"'});</script>");
 }
 %>
          <div id="login-box">
@@ -102,7 +104,7 @@ function alertaEliminar() {
   
 function alerta_consulta(){
 	Swal.fire({
-	    title: "Consulta",
+	    title: "Consulta usuario",
 	    icon: "question",
 	    text: "Ingresa el número de cédula",
 	    input: "number",
@@ -126,5 +128,4 @@ function alerta_consulta(){
 	});
 	}
 </script>
-
 </html>

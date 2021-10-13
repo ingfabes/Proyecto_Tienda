@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
-
 import Modelo.ProveedorDAO;
 import Modelo.ProveedorDTO;
 
@@ -46,10 +44,11 @@ public class controladorProveedor extends HttpServlet {
 			if (!nitproveedorS.equals("") && !ciudad_proveedor.equals("") && !direccion_proveedor.equals("") && !nombre_proveedor.equals("") && !telefono_proveedor.equals("")) {
 				nitproveedor = Long.parseLong(nitproveedorS);
 				ProveedorDTO PDTO = new ProveedorDTO(nitproveedor, ciudad_proveedor, direccion_proveedor, nombre_proveedor, telefono_proveedor);
-				if (PDAO.Registra_proveedor(PDTO)) {
-					response.sendRedirect("Gestion_proveedores.jsp?mens=Proveedor almacenado exitosamente");
+				String mensaje=PDAO.Registra_proveedor(PDTO);
+				if (mensaje.equals("ok")) {
+					response.sendRedirect("Gestion_proveedores.jsp?titulo=Registro exitoso&&mens=Proveedor almacenado correctamente&&icono=success");
 				} else {
-					response.sendRedirect("Gestion_proveedores.jsp?mens=El Proveedor no fue almacenado");
+					response.sendRedirect("Gestion_proveedores.jsp?titulo=No se pudo registrar el proveedor&&mens="+mensaje+"&&icono=error");
 				}
 			} else {
 				response.sendRedirect("Gestion_proveedores.jsp?mens=Porfavor, llene todos los datos e intente nuevamente");
@@ -57,10 +56,7 @@ public class controladorProveedor extends HttpServlet {
 		}
 
 		if (request.getParameter("consultar") != null) {
-			nitproveedorS = JOptionPane.showInputDialog("Digite el numero de Nit a consultar");
-			if (nitproveedorS != null) {
-				if (!nitproveedorS.isEmpty()) {
-					nitproveedor = Long.parseLong(nitproveedorS);
+					nitproveedor = Long.parseLong(request.getParameter("ced"));
 					ProveedorDTO PDTO = PDAO.Buscar_proveedor(nitproveedor);
 					if (PDTO != null) {
 						nitproveedor = PDTO.getNitproveedor();
@@ -72,29 +68,26 @@ public class controladorProveedor extends HttpServlet {
 						response.sendRedirect("Gestion_proveedores.jsp?nitproveedor=" + nitproveedor + "&&ciudad_proveedor=" + ciudad_proveedor + "&&direccion_proveedor="
 								+ direccion_proveedor + "&&nombre_proveedor=" + nombre_proveedor + "&&telefono_proveedor=" + telefono_proveedor);
 					} else {
-						response.sendRedirect("Gestion_proveedores.jsp?mens=El proveedor no existe");
-					}
-				} else {
-					response.sendRedirect("Gestion_proveedores.jsp?mens=Busqueda vacia");
+						if(PDAO.getMnsje().equals("ok")){
+							response.sendRedirect("Gestion_proveedores.jsp?titulo=No se encontraron resultados en la busqueda&&mens=El proveedor no existe&&icono=warning");
+					 }else {
+					response.sendRedirect("Gestion_proveedores.jsp?titulo=Error&&mens="+PDAO.getMnsje()+"&&icono=error");
 				}
-
-			} else if (nitproveedorS == null) {
-				response.sendRedirect("Gestion_proveedores.jsp");
-			}
+					}
 
 		}
 
 		if (request.getParameter("actualizar") != null) {
-			nitproveedor = Long.parseLong(request.getParameter("nitproveedor"));
+			nitproveedor = Long.parseLong(request.getParameter("ced"));
 			ciudad_proveedor = request.getParameter("ciudad_proveedor");
 			direccion_proveedor = request.getParameter("direccion_proveedor");
 			nombre_proveedor = request.getParameter("nombre_proveedor");
 			telefono_proveedor = request.getParameter("telefono_proveedor");
 			ProveedorDTO PDTO = new ProveedorDTO(nitproveedor, ciudad_proveedor, direccion_proveedor, nombre_proveedor, telefono_proveedor);
-			if (PDAO.Actualizar_usuario(PDTO)) {
-				response.sendRedirect("Gestion_proveedores.jsp?mens=Proveedor actualizado exitosamente");
+			if (PDAO.Actualizar_proveedor(PDTO)) {
+				response.sendRedirect("Gestion_proveedores.jsp?titulo=Actualizacion exitosa&&mens=Proveedor actualizado correctamentee&&icono=success");
 			} else {
-				response.sendRedirect("Gestion_proveedores.jsp?mens=El Proveedor no fue actualizado");
+				response.sendRedirect("Gestion_proveedores.jsp?titulo=Error&&mens=El usuario no fue actualizado&&icono=error");
 			}
 
 		}
