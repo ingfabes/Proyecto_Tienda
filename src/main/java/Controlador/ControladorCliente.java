@@ -1,6 +1,8 @@
 package Controlador;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,6 +69,7 @@ public class ControladorCliente extends HttpServlet {
 						cedu = CDTO.getCedula();
 						nombre = CDTO.getNombre_completo();
 						direccion = CDTO.getDireccion();
+						direccion = URLEncoder.encode(direccion, "UTF-8");
 						telefono = CDTO.getTelefono();
 						correo = CDTO.getCorreoelectronico();
 						response.sendRedirect("Gestion_Clientes.jsp?cedula=" + cedu + "&&nombre=" + nombre + "&&direccion="

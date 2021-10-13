@@ -59,7 +59,7 @@ public ArrayList<ProductoDTO> listarproductos(){
 	ps=conec.prepareStatement(sql);
 	res=ps.executeQuery();
 	while(res.next()) {
-		pro=new ProductoDTO(res.getInt(1),res.getInt(2),res.getInt(3),res.getString(4),res.getInt(5),res.getInt(6));
+		pro=new ProductoDTO(res.getInt("codigo_producto"),res.getInt("ivacompra"),res.getInt("nitproveedor"),res.getString("nombre_producto"),res.getInt("precio_compra"),res.getInt("precio_venta"));
 		lista.add(pro);
 	}
 		
