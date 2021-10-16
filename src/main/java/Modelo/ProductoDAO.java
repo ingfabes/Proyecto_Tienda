@@ -50,23 +50,43 @@ public String Cargar_Producto(String Ruta) {
 		return mensaje;
 	}
 
-public ArrayList<ProductoDTO> listarproductos(){
-	
-	ProductoDTO pro=null;
-	ArrayList<ProductoDTO> lista= new ArrayList<>();
-	try {
-	String sql="select * from productos";
-	ps=conec.prepareStatement(sql);
-	res=ps.executeQuery();
-	while(res.next()) {
-		pro=new ProductoDTO(res.getInt("codigo_producto"),res.getInt("ivacompra"),res.getInt("nitproveedor"),res.getString("nombre_producto"),res.getInt("precio_compra"),res.getInt("precio_venta"));
-		lista.add(pro);
-	}
+	public ArrayList<ProductoDTO> listarproductos(){
 		
-	}catch(SQLException ex) {
-		JOptionPane.showMessageDialog(null,"Error al consultar prestamos" +ex);
+		ProductoDTO pro=null;
+		ArrayList<ProductoDTO> lista= new ArrayList<>();
+		try {
+		String sql="select * from productos";
+		ps=conec.prepareStatement(sql);
+		res=ps.executeQuery();
+		while(res.next()) {
+			pro=new ProductoDTO(res.getInt("codigo_producto"),res.getInt("ivacompra"),res.getInt("nitproveedor"),res.getString("nombre_producto"),res.getInt("precio_compra"),res.getInt("precio_venta"));
+			lista.add(pro);
+		}
+			
+		}catch(SQLException ex) {
+			JOptionPane.showMessageDialog(null,"Error al consultar prestamos" +ex);
+		}
+		 return lista;
 	}
-	 return lista;
-}
+
+	public ProductoDTO Buscar_producto(int codigo_producto) {
+		ProductoDTO PDTO = null;
+		if(conec!=null) {
+			try {
+				String sql = "select * from productos where codigo_producto=?";
+				ps = conec.prepareStatement(sql);
+				ps.setLong(1, codigo_producto);
+				res = ps.executeQuery();
+				while (res.next()) {
+					PDTO = new ProductoDTO(res.getInt("codigo_producto"),res.getInt("ivacompra"),res.getInt("nitproveedor"),res.getString("nombre_producto"),res.getInt("precio_compra"),res.getInt("precio_venta"));
+				}
+			} catch (SQLException s) {
+				JOptionPane.showMessageDialog(null,"No se pudo establecer la consulta" + s);
+			}
+		}else {
+			JOptionPane.showMessageDialog(null,"No se pudo conectar con la base de datos");
+		}
+		return PDTO;
+	}
 
 }

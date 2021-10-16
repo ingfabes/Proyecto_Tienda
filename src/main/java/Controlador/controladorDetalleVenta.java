@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import Modelo.DetalleVentaDAO;
+import Modelo.DetalleVentaDTO;
 import Modelo.ProductoDAO;
 import Modelo.ProductoDTO;
 import Modelo.VentaDAO;
@@ -19,14 +21,14 @@ import Modelo.VentaDTO;
 /**
  * Servlet implementation class controladorVenta
  */
-@WebServlet("/controladorVenta")
-public class controladorVenta extends HttpServlet {
+@WebServlet("/controladorDetalleVenta")
+public class controladorDetalleVenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public controladorVenta() {
+    public controladorDetalleVenta() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,23 +38,24 @@ public class controladorVenta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		VentaDAO ventaDao= new VentaDAO();
+		DetalleVentaDAO detalleVentaDao= new DetalleVentaDAO();
 		String op=request.getParameter("opcion");
 		//JOptionPane.showMessageDialog(null, op);
 		PrintWriter salida= response.getWriter();
 		Gson datos= new Gson();
 			
-		if(op.equals("ventas")) {
+		if(op.equals("detalleVentas")) {
 			//JOptionPane.showMessageDialog(null, request.getParameter("codigo_producto"));
-			int cedula_cliente = Integer.parseInt(request.getParameter("cedula_cliente"));
-			int cedula_usuario = (Integer)request.getSession().getAttribute("cedula_usuario");
-			double ivaventa = Double.parseDouble(request.getParameter("ivaventa"));
-			double total_venta = Double.parseDouble(request.getParameter("total_venta"));
+			int cantidad_producto = Integer.parseInt(request.getParameter("cantidad_producto"));
+			int codigo_producto = Integer.parseInt(request.getParameter("codigo_producto"));
+			int codigo_venta = Integer.parseInt(request.getParameter("codigo_venta"));
+			double valor_total = Double.parseDouble(request.getParameter("valor_total"));
 			double valor_venta = Double.parseDouble(request.getParameter("valor_venta"));
-			VentaDTO ventaDto= new VentaDTO(cedula_cliente,cedula_usuario, ivaventa,total_venta,valor_venta);
-			int llave = ventaDao.Registra_venta(ventaDto);
-			String llaveJSON = "{\"llave\":\""+llave+"\"}";
-			salida.println(datos.toJson(llaveJSON));
+			double valoriva = Double.parseDouble(request.getParameter("valoriva"));
+			DetalleVentaDTO detalleVentaDto= new DetalleVentaDTO(cantidad_producto,codigo_producto, codigo_venta,valor_total,valor_venta,valoriva);
+			detalleVentaDao.Registra_detalleVenta(detalleVentaDto);
+			//String llaveJSON = "{\"llave\":\""+llave+"\"}";
+			//salida.println(datos.toJson(llaveJSON));
 		}
 	}
 

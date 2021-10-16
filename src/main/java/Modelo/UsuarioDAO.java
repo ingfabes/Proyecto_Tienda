@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import Controlador.Conexion;
 
 public class UsuarioDAO {
@@ -14,7 +16,8 @@ public class UsuarioDAO {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	private String Mnsje="";
-
+	public static int cedula_usuario;
+	
 	public String getMnsje() {
 		return Mnsje;
 	}
@@ -125,6 +128,9 @@ public class UsuarioDAO {
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				resultado=true;
+				cedula_usuario = rs.getInt("cedula_usuario");
+				//JOptionPane.showMessageDialog(null,"la cedula del usuario es "+cedula_usuario);
+				
 			}
 		}catch(Exception e) {
 			resultado=false;

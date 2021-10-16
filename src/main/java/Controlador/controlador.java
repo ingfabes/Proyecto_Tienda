@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
+
 import Modelo.UsuarioDAO;
 import Modelo.UsuarioDTO;
 
@@ -15,7 +17,7 @@ import Modelo.UsuarioDTO;
 @WebServlet("/controlador")
 public class controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	public static int cedula_usuario;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,6 +41,9 @@ public class controlador extends HttpServlet {
 			}else {
 				if (UDAO.Login(usuario, password)) {
 					response.sendRedirect("Pagina_principal.jsp");
+					//JOptionPane.showMessageDialog(null,"la cedula del usuario en ctrl es "+UDAO.cedula_usuario);
+					//cedula_usuario = UDAO.cedula_usuario;
+					request.getSession().setAttribute("cedula_usuario", new Integer(UDAO.cedula_usuario));
 				} else {
 					response.sendRedirect("Login.jsp?mens=Datos invalidos");
 				}
@@ -129,5 +134,9 @@ public class controlador extends HttpServlet {
 		if (request.getParameter("prod") != null) {
 			response.sendRedirect("Productos.jsp");
 		}
+		if (request.getParameter("ven") != null) {
+			response.sendRedirect("Gestion_ventas.jsp");
+		}
+		
 	}
 }

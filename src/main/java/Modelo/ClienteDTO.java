@@ -4,7 +4,7 @@ public class ClienteDTO {
 	
 	private long cedula;
 	private String nombre_completo, direccion, telefono, correoelectronico;
-	
+
 	public ClienteDTO(long cedula, String direccion, String correoelectronico, String nombre_completo,
 			String telefono) {
 		
@@ -45,8 +45,11 @@ public class ClienteDTO {
 	}
 	public void setCorreoelectronico(String correoelectronico) {
 		this.correoelectronico = correoelectronico;
+	}	
+	@Override
+	public String toString() {
+		return "ClienteDTO [cedula=" + cedula + ", nombre_completo=" + nombre_completo + ", direccion=" + direccion
+				+ ", telefono=" + telefono + ", correoelectronico=" + correoelectronico + "]";
 	}
-	
-	
 	
 }

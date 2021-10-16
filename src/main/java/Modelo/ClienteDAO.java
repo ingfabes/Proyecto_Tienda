@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import Controlador.Conexion;
 
 public class ClienteDAO {
@@ -56,6 +58,7 @@ public class ClienteDAO {
 
 		public ClienteDTO Buscar_Cliente(long cedula) {
 			setMnsje("");
+			//JOptionPane.showMessageDialog(null, "dto:" + cedula);
 			ClienteDTO CDTO = null;
 			if(conect!=null) {
 			try {
@@ -64,12 +67,14 @@ public class ClienteDAO {
 				ps.setLong(1, cedula);
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					CDTO = new ClienteDTO(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4),
-							rs.getString(5));
+					//JOptionPane.showMessageDialog(null, "dto2:" + rs.getString("telefono_cliente"));
+					CDTO = new ClienteDTO(rs.getLong("cedula_cliente"), rs.getString("direccion_cliente"), rs.getString("email_cliente"), rs.getString("nombre_cliente"),
+							rs.getString("telefono_cliente"));		
 				}
+				
 				setMnsje("ok");
 			} catch (SQLException s) {
-				setMnsje("No se pudo establecer la consulta");
+				setMnsje("No se pudo establecer la consulta: " + s);
 			}
 			}else {
 				setMnsje("No se pudo conectar con la base de datos");;

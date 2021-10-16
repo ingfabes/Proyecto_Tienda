@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Conexion {
-	private String bd="tienda";
+	private String bd="tiendagenerica";
 	private String url="jdbc:mysql://localhost:3306/"+bd;
 	private String user="root";
-	private String pass="1234";
+	private String pass="Los/295634";
 	
 	Connection conect=null;
 	
