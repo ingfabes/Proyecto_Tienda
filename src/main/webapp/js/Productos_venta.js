@@ -54,7 +54,7 @@ function guardaVenta(){
 		total_venta:$("#total_venta").val()
 		},
 	success: function(result){
-		alert("entro al success");
+		//alert("entro al success");
 		console.log(result) //Imprime Json en la consola
 			if(result==null)
 			{
@@ -94,7 +94,7 @@ function guardaDetalleVenta(llave){
 			valoriva:$("#iva_producto"+j).val()
 			},
 		success: function(result){
-			alert("entro al success");
+			//alert("entro al success");
 			console.log(result) //Imprime Json en la consola
 				if(result==null)
 				{
@@ -111,6 +111,7 @@ function guardaDetalleVenta(llave){
 			}
 		})
 	}
+	alert("la factura  " + llave +" creada");
 	
 }
 
