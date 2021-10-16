@@ -137,6 +137,9 @@ public class controlador extends HttpServlet {
 		if (request.getParameter("ven") != null) {
 			response.sendRedirect("Gestion_ventas.jsp");
 		}
+		if (request.getParameter("rep") != null) {
+			response.sendRedirect("Reportes.jsp");
+		}
 		
 	}
 }

@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import Controlador.Conexion;
+import Controlador.*;
+import Modelo.*;
 
 public class UsuarioDAO {
 
@@ -137,6 +139,25 @@ public class UsuarioDAO {
 		}
 		return resultado;
 	}
+	public ArrayList<UsuarioDTO> listarusuarios(){
+		
+		UsuarioDTO usu=null;
+		ArrayList<UsuarioDTO> lista= new ArrayList<>();
+		try {
+		String sql="select * from usuarios";
+		ps=conect.prepareStatement(sql);
+		rs=ps.executeQuery();
+		while(rs.next()) {
+			usu=new UsuarioDTO(rs.getInt("cedula_usuario"),rs.getString("email_usuario"),rs.getString("nombre_usuario"),rs.getString("password"),rs.getString("usuario"));
+			lista.add(usu);
+		}
+			
+		}catch(SQLException ex) {
+			JOptionPane.showMessageDialog(null,"Error al consultar" +ex);
+		}
+		 return lista;
+	}
+
 	
 
 }

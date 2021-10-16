@@ -64,7 +64,7 @@ public String Cargar_Producto(String Ruta) {
 		}
 			
 		}catch(SQLException ex) {
-			JOptionPane.showMessageDialog(null,"Error al consultar prestamos" +ex);
+			JOptionPane.showMessageDialog(null,"Error al consultar " +ex);
 		}
 		 return lista;
 	}

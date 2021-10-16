@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -124,6 +125,27 @@ public class ClienteDAO {
 			return resultado;
 		}
 
+		
+		
+		
+		public ArrayList<ClienteDTO> listarclientes(){
+			
+			ClienteDTO cli=null;
+			ArrayList<ClienteDTO> lista= new ArrayList<>();
+			try {
+			String sql="select * from clientes";
+			ps=conect.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				cli=new ClienteDTO(rs.getInt("cedula_cliente"),rs.getString("direccion_cliente"),rs.getString("email_cliente"),rs.getString("nombre_cliente"),rs.getString("telefono_cliente"));
+				lista.add(cli);
+			}
+				
+			}catch(SQLException ex) {
+				JOptionPane.showMessageDialog(null,"Error al consultar" +ex);
+			}
+			 return lista;
+		}
 		
 		}
 		

@@ -7,7 +7,7 @@ public class Conexion {
 	private String bd="tiendagenerica";
 	private String url="jdbc:mysql://localhost:3306/"+bd;
 	private String user="root";
-	private String pass="Los/295634";
+	private String pass="admin";
 	
 	Connection conect=null;
 	

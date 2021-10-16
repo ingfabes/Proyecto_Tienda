@@ -13,6 +13,7 @@ public class VentaDAO {
 	Connection conec=cnn.conecta();
 	PreparedStatement ps=null;
 	ResultSet res=null;
+	
 
 	public int Registra_venta(VentaDTO VDTO) {
 		int venta = 0;
@@ -45,6 +46,26 @@ public class VentaDAO {
 			JOptionPane.showMessageDialog(null,"No se pudo conectar con la base de datos");
 		}
 		return venta;
+	}
+	
+public ArrayList<VentaDTO> listarventas(){
+		;
+		VentaDTO ven=null;
+		ArrayList<VentaDTO> lista= new ArrayList<>();
+		try {
+		String sql="select * from ventas";
+		ps=conec.prepareStatement(sql);
+		res=ps.executeQuery();
+		while(res.next()) {
+			ven=new VentaDTO(res.getInt("cedula_cliente"),res.getInt("cedula_usuario"),res.getDouble("ivaventa"),res.getDouble("total_venta"),res.getDouble("valor_venta"));
+			lista.add(ven);
+			
+		}
+			
+		}catch(SQLException ex) {
+			JOptionPane.showMessageDialog(null,"Error al consultar" +ex);
+		}
+		 return lista;
 	}
 
 }
