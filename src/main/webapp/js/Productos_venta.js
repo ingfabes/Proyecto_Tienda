@@ -55,6 +55,7 @@ function guardaVenta(){
 		},
 	success: function(result){
 		//alert("entro al success");
+		var consecutivo=document.getElementById("consecutivo")
 		console.log(result) //Imprime Json en la consola
 			if(result==null)
 			{
@@ -64,6 +65,7 @@ function guardaVenta(){
 			else
 			{
 				var datos = JSON.parse(result);
+				consecutivo.value=datos.llave;
 				//alert("la llave es " + datos.llave);
 				guardaDetalleVenta(datos.llave)
 					
