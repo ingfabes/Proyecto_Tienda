@@ -89,7 +89,7 @@ function listaVentas(){
 		for(let fila of result){
 			tabla.innerHTML+=`<tr>
 			<td>${fila.cedula_cliente}</td>
-			<td>${fila.total_venta}</td>
+			<td>${fila.valor_venta}</td>
 			
 			
 			

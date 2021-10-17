@@ -53,11 +53,11 @@ public ArrayList<VentaDTO> listarventas(){
 		VentaDTO ven=null;
 		ArrayList<VentaDTO> lista= new ArrayList<>();
 		try {
-		String sql="select * from ventas";
+		String sql="SELECT cedula_cliente, SUM( valor_venta ) as valor_venta FROM ventas GROUP BY `cedula_cliente`";
 		ps=conec.prepareStatement(sql);
 		res=ps.executeQuery();
 		while(res.next()) {
-			ven=new VentaDTO(res.getInt("cedula_cliente"),res.getInt("cedula_usuario"),res.getDouble("ivaventa"),res.getDouble("total_venta"),res.getDouble("valor_venta"));
+			ven=new VentaDTO(res.getInt("cedula_cliente"),1,1,1,res.getDouble("valor_venta"));
 			lista.add(ven);
 			
 		}
