@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<title>Tienda gen…rica</title>
 	<link rel="stylesheet" type="text/css" href="css/Estilo_L.css">
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="js/sweetalert2.all.min.js"></script>
 </head>
 <body>
 	

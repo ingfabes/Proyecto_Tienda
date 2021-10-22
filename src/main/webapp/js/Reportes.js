@@ -24,7 +24,7 @@ function listaUsuarios(){
 			tabla.innerHTML+=`<tr>
 			<td>${fila.cedula}</td>
 			<td>${fila.email}</td>
-			<td>${fila.nitnombre}</td>
+			<td>${fila.nombre}</td>
 			<td>${fila.password}</td>
 			<td>${fila.usuario}</td>
 			
